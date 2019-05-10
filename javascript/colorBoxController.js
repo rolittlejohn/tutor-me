@@ -8,6 +8,8 @@ const ColorController = {
     maxMargin: 450,
     rgbColorMax: 255,
     animationInterval: 10,
+    leftToRightIntervals: [],
+    topToBottomIntervals: [],
 
     initialize: function() {
         this.boxContainer = document.getElementById("box-container");
@@ -44,6 +46,10 @@ const ColorController = {
     removeLastAddedBox: function() {
         let colorBoxes = document.getElementsByClassName("color-box");
         if (colorBoxes.length > 0) {
+            clearInterval(this.topToBottomIntervals[colorBoxes.length - 1]);
+            clearInterval(this.leftToRightIntervals[colorBoxes.length - 1]);
+            this.topToBottomIntervals.pop();
+            this.leftToRightIntervals.pop();
             this.boxContainer.removeChild(colorBoxes[colorBoxes.length - 1]);
         }
     },
@@ -54,6 +60,10 @@ const ColorController = {
     clearBoxes: function() {
         let colorBoxes = document.getElementsByClassName("color-box");
         for (let i = colorBoxes.length; i > 0; i--) {
+            clearInterval(this.topToBottomIntervals[i - 1]);
+            clearInterval(this.leftToRightIntervals[i - 1]);
+            this.topToBottomIntervals.splice(i - 1);
+            this.leftToRightIntervals.splice(i - 1);
             this.boxContainer.removeChild(colorBoxes[i - 1]);
         }
     },
@@ -124,25 +134,25 @@ const ColorController = {
         let currentMargin = parseFloat(box.style.marginLeft);
 
         // Begin motion
-        setInterval(function() {
-            if (ColorController.shouldAnimate) {
-                if (positiveMotion) {
-                    if (currentMargin !== ColorController.maxMargin) {
-                        ColorController.moveBoxRight(box, currentMargin);
-                        currentMargin = parseFloat(box.style.marginLeft);
+        this.leftToRightIntervals.push(setInterval(function() {
+                if (ColorController.shouldAnimate) {
+                    if (positiveMotion) {
+                        if (currentMargin !== ColorController.maxMargin) {
+                            ColorController.moveBoxRight(box, currentMargin);
+                            currentMargin = parseFloat(box.style.marginLeft);
+                        } else {
+                            positiveMotion = false;
+                        }
                     } else {
-                        positiveMotion = false;
-                    }
-                } else {
-                    if (currentMargin !== 0) {
-                        ColorController.moveBoxLeft(box, currentMargin);
-                        currentMargin = parseFloat(box.style.marginLeft);
-                    } else {
-                        positiveMotion = true;
+                        if (currentMargin !== 0) {
+                            ColorController.moveBoxLeft(box, currentMargin);
+                            currentMargin = parseFloat(box.style.marginLeft);
+                        } else {
+                            positiveMotion = true;
+                        }
                     }
                 }
-            }
-        }, this.animationInterval);
+            }, this.animationInterval));
     },
 
     /**
@@ -159,25 +169,25 @@ const ColorController = {
         let currentMargin = parseFloat(box.style.marginTop);
 
         // Begin motion
-        setInterval(function() {
-            if (ColorController.shouldAnimate) {
-                if (positiveMotion) {
-                    if (currentMargin !== ColorController.maxMargin) {
-                        ColorController.moveBoxDown(box, currentMargin);
-                        currentMargin = parseFloat(box.style.marginTop);
+        this.topToBottomIntervals.push(setInterval(function() {
+                if (ColorController.shouldAnimate) {
+                    if (positiveMotion) {
+                        if (currentMargin !== ColorController.maxMargin) {
+                            ColorController.moveBoxDown(box, currentMargin);
+                            currentMargin = parseFloat(box.style.marginTop);
+                        } else {
+                            positiveMotion = false;
+                        }
                     } else {
-                        positiveMotion = false;
-                    }
-                } else {
-                    if (currentMargin !== 0) {
-                        ColorController.moveBoxUp(box, currentMargin);
-                        currentMargin = parseFloat(box.style.marginTop);
-                    } else {
-                        positiveMotion = true;
+                        if (currentMargin !== 0) {
+                            ColorController.moveBoxUp(box, currentMargin);
+                            currentMargin = parseFloat(box.style.marginTop);
+                        } else {
+                            positiveMotion = true;
+                        }
                     }
                 }
-            }
-        }, this.animationInterval);
+            }, this.animationInterval));
     },
 
     /**
