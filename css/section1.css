@@ -1,0 +1,11 @@
+#box-container {
+  border: 1px solid black;
+  height: 500px;
+  width: 500px;
+}
+
+.color-box {
+  height: 50px;
+  position: absolute;
+  width: 50px;
+}

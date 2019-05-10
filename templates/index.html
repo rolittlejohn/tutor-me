@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../css/section1.css" />
+    <script src="../javascript/colorBoxController.js"></script>
+  </head>
+  <body>
+    <div id="heading-section">
+      <h1>Hey there!</h1>
+    </div>
+    <div id="section-1">
+      <p>
+        This section will display colorful moving boxes.
+      </p>
+      <p>Click the button below to add another box.</p>
+      <button id="box-add-button">Add Box</button>
+      <button id="box-remove-button">Remove Last Box</button>
+      <button id="box-clear-button">Clear All Boxes</button>
+      <button id="animation-toggle-button">Stop Animation</button>
+      <div id="box-container"></div>
+    </div>
+    <script>
+      ColorController.initialize();
+    </script>
+  </body>
+</html>
