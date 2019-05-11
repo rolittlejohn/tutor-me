@@ -162,7 +162,7 @@ const ColorController = {
      * @param box - the box element to apply top to bottom animation to
      */
     applyTopToBottomMotion: function(box) {
-        // Do we want to start this by moving right or left? Positive being true means to the right.
+        // Do we want to start this by moving up or down? Positive being true means downwards.
         let positiveMotion = this.generateRandomNumber(1) === 1;
 
         // Add a random start position for the box. Make sure it's not out of bounds
